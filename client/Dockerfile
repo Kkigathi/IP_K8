@@ -7,7 +7,7 @@ WORKDIR /app
 
 #install dependencies from both package files
 RUN npm install
-RUN npm ci
+
 
 #telling docker which port to listen to during runtime
 EXPOSE 3000
