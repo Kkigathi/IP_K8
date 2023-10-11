@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - 5000:5000
+    environment:
+      DB_URL: mongodb://db/yolomy
+
+  client:
+    build: ./client
+    ports:
+      - 3000:3000
+
+  dB:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - yolomy:/data/db
+      
+volumes:
+  yolomy:
