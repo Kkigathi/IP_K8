@@ -7,11 +7,23 @@ services:
       - 5000:5000
     environment:
       DB_URL: mongodb://db/yolomy
+    networks:
+      - IP_docker_network
+    depends_on:
+      - dB
+    container_name: IP_docker_backend
 
   client:
     build: ./client
     ports:
       - 3000:3000
+    networks:
+      - IP_docker_network
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+    container_name: IP_docker_client
 
   dB:
     image: mongo
@@ -19,6 +31,21 @@ services:
       - 27017:27017
     volumes:
       - yolomy:/data/db
+    networks:
+      - IP_docker_network
+    restart: always
+    container_name: IP_docker_dB
       
 volumes:
   yolomy:
+    driver: local
+
+networks:
+  IP_docker_network:
+    name: IP_docker_network
+    driver: bridge
+    attachable: true
+    ipam:
+      config:
+        - subnet: 172.17.0.0/16
+          ip_range: 172.17.0.0/16
