@@ -5,16 +5,16 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: myapp
+      app: YoloDB
   serviceName: dB_Service
   replicas: 1
   template:
     metadata:
       labels:
-        app: myapp
+        app: YoloDB
     spec:
       containers:
-      - name: myapp
+      - name: YoloDB
         image: mongo
         ports:
         - containerPort: 27017
