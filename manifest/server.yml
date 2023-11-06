@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: server_sideapp
+  name: server-sideapp
 spec:
   selector:
     matchLabels:
-      app: server_sideapp
+      app: server-sideapp
   template:
     metadata:
       labels:
-        app: server_sideapp
+        app: server-sideapp
     spec:
       containers:
-      - name: server_sideapp
+      - name: server-sideapp
         image: ./backend
         resources:
           limits:
@@ -24,10 +24,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: server_sideapp
+  name: server-sideapp
 spec:
   selector:
-    app: server_sideapp
+    app: server-sideapp
   ports:
   - port: 5000
     targetPort: 5000
