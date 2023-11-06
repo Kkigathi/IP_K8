@@ -1,13 +1,13 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mystatefulset
+  name: YoloDB
 spec:
   selector:
     matchLabels:
       app: myapp
-  serviceName: <ServiceName>
-  replicas: 2
+  serviceName: dB_Service
+  replicas: 1
   template:
     metadata:
       labels:
@@ -15,16 +15,16 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: registry.k8s.io/nginx-slim:0.8
+        image: mongo
         ports:
-        - containerPort: 80
-          name: web
+        - containerPort: 27017
+          name: mongodb://db/yolomy
         volumeMounts:
-        - name: www
-          mountPath: /usr/share/nginx/html
+        - name: DB_mongo_mnt
+          mountPath: /data/db
   volumeClaimTemplates:
   - metadata:
-      name: www
+      name: IP_metadata
     spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
